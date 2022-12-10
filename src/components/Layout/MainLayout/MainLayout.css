@@ -1,0 +1,254 @@
+.wrapper h1 {
+  text-align: center;
+  padding   : 5px;
+  font-size : 28px;
+}
+
+#header {
+  max-width : 100%;
+  background: var(--blue-main-color);
+  min-height: 70px;
+  padding   : 15px 30px;
+}
+
+#header .navbar {
+  display        : flex;
+  justify-content: space-between;
+  align-items    : center;
+}
+
+.banner {
+  height: 78px;
+}
+
+.navbar .title {
+  color         : #fff;
+  font-size     : 25px;
+  padding-right : 25px;
+  text-transform: uppercase;
+  font-weight   : 500;
+  border-right  : 1px solid #fff;
+  letter-spacing: 6px;
+}
+
+.navbar p {
+  font-size  : 1rem;
+  font-weight: bold;
+  color      : #fff;
+}
+
+.navbar .navbar-btn {
+  color      : #fff;
+  position   : absolute;
+  font-size  : 22px;
+  font-weight: 700;
+  cursor     : pointer;
+}
+
+.navbar .navbar-btn:hover {
+  transition: 0.5s;
+  color     : var(--blue-color);
+}
+
+
+/* avatar-options */
+.avatar {
+  width      : 40px;
+  position   : relative;
+  display    : flex;
+  align-items: center;
+}
+
+.avatar img {
+  width        : 100%;
+  object-fit   : cover;
+  overflow     : hidden;
+  cursor       : pointer;
+  border-radius: 50%;
+}
+
+.menu {
+  position     : absolute;
+  top          : 100%;
+  right        : -10px;
+  padding      : 20px;
+  background   : var(--gray-color);
+  width        : 150px;
+  border-radius: 5px;
+  transition   : 0.5s;
+  z-index      : 1;
+}
+
+.action .menu::before {
+  content   : '';
+  position  : absolute;
+  top       : -5px;
+  right     : 23px;
+  width     : 14px;
+  height    : 16px;
+  background: var(--gray-color);
+  transform : rotate(45deg);
+}
+
+.action .menu ul li {
+  list-style : none;
+  padding    : 10px 0;
+  border-top : 1px solid rgba(0, 0, 0, 0.05);
+  display    : flex;
+  align-items: center;
+}
+
+.action .menu ul li i {
+  max-width   : 20px;
+  margin-right: 10px;
+  opacity     : 0.5;
+  transition  : 0.5s;
+}
+
+.action .menu ul li div {
+  display        : inline-block;
+  text-decoration: none;
+  color          : #555;
+  font-weight    : 500;
+  transition     : 0.5s;
+}
+
+.action .menu ul li:hover div {
+  color : var(--blue-main-color);
+  cursor: pointer;
+}
+
+.action .menu ul li:hover i {
+  opacity: 1;
+  color  : var(--blue-main-color);
+  cursor : pointer;
+}
+
+.tool-bar {
+  display    : flex;
+  color      : var(--blue-main-color);
+  cursor     : pointer;
+  align-items: center;
+}
+
+/* sidebar */
+
+.sidebar {
+  z-index               : 1;
+  /* top                : 150px; */
+  height                : calc(100% - 9%);
+  width                 : 280px;
+  transition            : 0.3s;
+  transition-property   : width;
+  overflow-y            : auto;
+  background            : var(--blue-main-color);
+  position              : fixed;
+}
+
+.sidebar .sidebar-menu {
+  overflow: hidden;
+}
+
+.sidebar .interface {
+  text-align     : center;
+  justify-content: center;
+  align-items    : center;
+  border-top     : 2px solid white;
+}
+
+
+.interface img {
+  border-radius  : 50%;
+  object-fit     : cover;
+  object-position: center;
+  height         : 130px;
+  padding        : 5px;
+  margin-top     : 13px;
+}
+
+.interface .username p {
+  display       : block;
+  font-size     : 20px;
+  color         : #fff;
+  font-weight   : 500;
+  border-bottom : 2px solid white;
+  padding-bottom: 10px;
+}
+
+ul {
+  list-style: none;
+}
+
+
+.sidebar-menu-toggle .item {
+
+  border-bottom: 2px solid #fff;
+}
+
+.sidebar-menu-toggle li a {
+
+  padding        : 10px;
+  font-size      : 20px;
+  text-decoration: none;
+  color          : #fff;
+  display        : block;
+  margin-left    : 20px;
+
+}
+
+.sidebar-menu-toggle .item span {
+  margin-left: 15px;
+}
+
+.sidebar .sidebar-menu-toggle li a:hover {
+  width     : 300px;
+  height    : 60px;
+  font-size : 23px;
+  transition: 0.3s;
+}
+
+
+/* Button-sidebar */
+
+.wrapper.isShowSidebar .sidebar {
+  width: 80px;
+}
+
+.wrapper.isShowSidebar .sidebar .interface img,
+.wrapper.isShowSidebar .sidebar .interface .username p,
+.wrapper.isShowSidebar .sidebar a span {
+  display: none;
+}
+
+.wrapper.isShowSidebar .sidebar .sidebar-menu-toggle .item .icon {
+  font-size: 24px;
+}
+
+.wrapper.isShowSidebar .main {
+  width      : (100% - 80px);
+  margin-left: 80px;
+}
+
+.disable-account {
+  display: none;
+}
+
+/* Responsive */
+
+@media only screen and (max-width: 1200px) {
+  .wrapper .sidebar {
+    width: 80px;
+  }
+
+  .wrapper .sidebar .interface img,
+  .wrapper .sidebar .interface .username p,
+  .wrapper .sidebar a span {
+    display: none;
+  }
+
+  .tool-bar .navbar-btn {
+    min-width: 140px;
+    overflow : hidden;
+  }
+
+}

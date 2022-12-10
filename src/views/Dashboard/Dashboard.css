@@ -1,0 +1,147 @@
+/* main */
+.wrapper .main {
+  width              : (100% - 250px);
+  margin-left        : 280px;
+  padding            : 25px;
+  /* background-color: #4267b2; */
+  background-size    : cover;
+}
+
+.main .block {
+  display        : flex;
+  justify-content: space-between;
+  align-items    : center;
+  margin-bottom  : 20px;
+}
+
+/* Search */
+.search-bar {
+  margin-right : 10px;
+  width        : 30%;
+  border       : 1px solid var(--gray-color);
+  border-radius: 5px;
+  height       : 45px;
+  /* display   : flex; */
+  align-items  : center;
+  overflow-x   : hidden;
+}
+
+.search-bar input {
+  background: var(--gray-color);
+  height    : 100%;
+  width     : 100%;
+  padding   : 5px;
+  border    : none;
+  outline   : none;
+}
+
+/* Date time */
+.block .datetime {
+  display   : flex;
+  margin-top: 30px;
+}
+
+
+.datetime .form-control span {
+  color      : black;
+  font-weight: 500;
+  font-size  : 16px;
+}
+
+.form-control input {
+  cursor: pointer;
+
+}
+
+.start-time {
+  margin-right: 15px;
+  border      : none;
+  outline     : none;
+  font-size   : 16px;
+  opacity     : 0.6;
+}
+
+.end-time {
+  border   : none;
+  outline  : none;
+  font-size: 16px;
+  opacity  : 0.6;
+}
+
+/* Table */
+.table-main .table-content {
+  width          : 100%;
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+  margin-bottom  : 10px;
+  text-align     : center;
+}
+
+.table-content table {
+  border         : 2px solid black;
+  width          : 100%;
+  height         : 200px;
+  border-collapse: collapse;
+}
+
+.table-content th {
+  border     : 1px solid black;
+  background : var(--blue-main-color);
+  font-weight: 700;
+  color      : #fff;
+  padding-top: 17px;
+  height     : 60px;
+}
+
+.table-content td {
+  border     : 1px solid black;
+  padding-top: 10px;
+}
+
+.table-content td .red {
+  color    : red;
+  font-size: 10px;
+}
+
+.table-content td .green {
+  color    : green;
+  font-size: 10px;
+}
+
+/* page-btn */
+.page-navigation-btn {
+  text-align : center;
+  color      : var(--blue-main-color);
+  font-weight: 700;
+}
+
+.page-navigation-btn span {
+  margin-left : 10px;
+  margin-right: 10px;
+}
+
+.page-navigation-btn button {
+  border    : none;
+  background: white;
+  color     : var(--blue-main-color);
+}
+
+.page-navigation-btn button:hover {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 1200px) {
+  .wrapper .main {
+    width      : (100% - 80px);
+    margin-left: 80px;
+  }
+
+  .main .block {
+    display: block;
+  }
+
+  .block .datetime {
+    margin-top: 10px;
+  }
+}

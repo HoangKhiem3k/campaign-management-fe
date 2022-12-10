@@ -1,0 +1,24 @@
+.loader-container {
+  position        : fixed;
+  top             : 0;
+  left            : 0;
+  width           : 100%;
+  height          : 100%;
+  background-color: #F8F8F8AD;
+  z-index         : 9999;
+  display         : flex;
+  justify-content : center;
+  align-items     : center;
+}
+
+.hide-loading {
+  display: none;
+}
+
+.loader {
+  position: absolute;
+}
+
+.loader img {
+  width: 100px;
+}
