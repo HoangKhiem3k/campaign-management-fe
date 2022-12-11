@@ -10,24 +10,23 @@ import './Campaign.css';
 import Lightbox from 'react-18-image-lightbox';
 import 'react-18-image-lightbox/style.css';
 import { toast } from 'react-toastify'
-import { createCampaignAction, fetchAllCampaignPaginationAction, moveDataUpdateToStoreAction, moveData,softDeleteCampaignAction } from '../../store/actions/campaignAction';
+import { createCampaignAction, fetchAllCampaignPaginationAction, moveDataUpdateToStoreAction, moveData, softDeleteCampaignAction } from '../../store/actions/campaignAction';
 import { BACKEND_DOMAIN, BACKEND_DOMAIN_IMAGE, LIMIT_NUM_CAMPAIGN } from '../../config/settingSystem';
 import ModalDefault from '../../components/Common/ModalEditCampaign';
-import { campaignServices } from '../../services/campaignService';
 import axios from 'axios';
 import { turnOffLoader, turnOnLoader } from '../../store/actions/loaderAction';
+import Paginate from '../../components/Common/Pagination';
+import ReactPaginate from 'react-paginate';
 const FileDownload = require('js-file-download');
 export default function Campaign() {
   const [searchInfo, setSearchInfo] = useState({
     key_word: '',
     page_number: 1,
-    number_of_element: LIMIT_NUM_CAMPAIGN,
     start_time: '',
     end_time: '',
   })
   const typingTimeoutRef = useRef(null);
   const [isOpenModalEdit, setOpenModalEdit] = useState(false);
-  const handleCloseEdit = () => { setOpenModalEdit(false) }
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const currentUser = useSelector((state) => state.auth?.currentUser)
@@ -36,7 +35,7 @@ export default function Campaign() {
   const [show, setShow] = useState(false);
   const [previewBanner, setPreviewBanner] = useState('');
   const [isOpenLightBox, setIsOpenLightBox] = useState(false)
-  const handleClose = () =>{ 
+  const handleClose = () => {
     setShow(false)
   };
   const handleShow = () => setShow(true);
@@ -58,8 +57,8 @@ export default function Campaign() {
       start_time: Yup.date().required("Required!"),
       end_time: Yup.date().required("Required!").when("start_time",
         (start_time, yup) => start_time && yup.min(start_time, "End time cannot be before start time")),
-      budget: Yup.number().typeError('Budget must be a number').required("Please enter campaign's budget").positive("Must be more than 0").integer('Budget must be a integer').max(Number.MAX_SAFE_INTEGER,"Budget must be less than or equal to 9007199254740991"),
-      bid_amount: Yup.number().typeError('Bid amount must be a number').required("Please enter campaign's bid amount").positive("Must be more than 0").integer('Bid amount must be a integer').max(Number.MAX_SAFE_INTEGER,"Bid amount must be less than or equal to 9007199254740991"),
+      budget: Yup.number().typeError('Budget must be a number').required("Please enter campaign's budget").positive("Must be more than 0").integer('Budget must be a integer').max(Number.MAX_SAFE_INTEGER, "Budget must be less than or equal to 9007199254740991"),
+      bid_amount: Yup.number().typeError('Bid amount must be a number').required("Please enter campaign's bid amount").positive("Must be more than 0").integer('Bid amount must be a integer').max(Number.MAX_SAFE_INTEGER, "Bid amount must be less than or equal to 9007199254740991"),
       title: Yup.string().min(2, "Title must have at least 2 characters").max(255, "Exceed the number of characters"),
       description: Yup.string().min(2, "Description must have at least 2 characters"),
       banner: Yup.mixed().required("Please choose a campaign's banner").test("FILE_TYPE", "Invalid type! Please choose another file", (value) => value && ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/svg'].includes(value.type)),
@@ -88,7 +87,7 @@ export default function Campaign() {
     },
   });
   useEffect(() => {
-    dispatch(fetchAllCampaignPaginationAction('', 1, LIMIT_NUM_CAMPAIGN, '', '', dispatch, navigate))
+    dispatch(fetchAllCampaignPaginationAction('', 1, '', '', navigate))
   }, [])
   const handleSoftDelete = (campaignId) => {
     let notification = "Are you sure you want to delete?"
@@ -148,21 +147,8 @@ export default function Campaign() {
     }
   }
   useEffect(() => {
-    dispatch(fetchAllCampaignPaginationAction(searchInfo.key_word, searchInfo.page_number, searchInfo.number_of_element, searchInfo.start_time, searchInfo.end_time, dispatch, navigate))
+    dispatch(fetchAllCampaignPaginationAction(searchInfo.key_word, searchInfo.page_number, searchInfo.start_time, searchInfo.end_time, navigate))
   }, [searchInfo])
-  let calculatorLastPage = () => {
-    let lastPage = 0
-    if (totalRecords / LIMIT_NUM_CAMPAIGN <= 1) {
-      lastPage = 1
-    } else {
-      if (Number.isInteger(totalRecords / LIMIT_NUM_CAMPAIGN)) {
-        lastPage = totalRecords / LIMIT_NUM_CAMPAIGN
-      } else {
-        lastPage = Math.floor(totalRecords / LIMIT_NUM_CAMPAIGN) + 1
-      }
-    }
-    return lastPage
-  }
   const handleExportData = () => {
     dispatch(turnOnLoader())
     axios({
@@ -176,6 +162,13 @@ export default function Campaign() {
       dispatch(turnOffLoader())
     })
   }
+  const pageCount = Math.ceil(totalRecords / LIMIT_NUM_CAMPAIGN);
+  const handlePageClick = (event) => {
+    console.log(
+      `User requested page number ${event.selected + 1}`
+    );
+    setSearchInfo({ ...searchInfo, page_number: event.selected + 1})
+  };
   return (
     <>
       <div className="block">
@@ -200,8 +193,6 @@ export default function Campaign() {
               <button onClick={handleExportData} className="export">Export CSV</button>
             </div>
             <div className="Campaign-btn">
-              {/* <button className="campaign" onClick={() => setShow(true)}>Create Campaign</button> */}
-              {/* {isOpen && <Modal setIsOpen={setIsOpen} />} */}
               <Button variant="primary" onClick={handleShow}>
                 Create Campaign
               </Button>
@@ -264,13 +255,25 @@ export default function Campaign() {
         </div>
       </div>
       <div className="page-navigation">
-        <div className="page-navigation-btn">
-          <button className={searchInfo.page_number <= 1 ? "fas fa-chevron-left page-disable" : "fas fa-chevron-left"} onClick={() => setSearchInfo({ ...searchInfo, page_number: searchInfo.page_number - 1 })}></button>
-          <span>{searchInfo.page_number}</span>
-          <span>/</span>
-          <span>{calculatorLastPage()}</span>
-          <button className={searchInfo.page_number >= calculatorLastPage() ? "fas fa-chevron-right page-disable" : "fas fa-chevron-right"} onClick={() => setSearchInfo({ ...searchInfo, page_number: searchInfo.page_number + 1 })}></button>
-        </div>
+        <ReactPaginate
+          previousLabel="<"
+          nextLabel=">"
+          breakLabel="..."
+          pageCount={pageCount}   // totalRecord from be
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}  // hien thi page trong dau ...
+          renderOnZeroPageCount={null}
+          containerClassName={'pagination justify-content-center'}  // className bootstrap
+          pageClassName={'page-item'} // className bootstrap
+          pageLinkClassName={'page-link'}  // className bootstrap
+          previousClassName={'page-item'}
+          previousLinkClassName={'page-link'}
+          nextClassName={'page-item'}
+          nextLinkClassName={'page-link'}
+          breakClassName={'page-item'}
+          breakLinkClassName={'page-link'}
+          activeClassName={'active'}
+        />
       </div>
       <form onSubmit={formik.handleSubmit}>
         <div className="Campaign-Model">
@@ -441,7 +444,6 @@ export default function Campaign() {
                               }}></div>
                               : <></>
                             }
-                            
                             {formik.errors.banner && (
                               <p style={{ color: 'red', zIndex: 10 }}>
                                 {formik.errors.banner}

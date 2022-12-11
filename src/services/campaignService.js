@@ -36,7 +36,7 @@ export const campaignServices = {
   fetchCampaignPagination: async (data,dispatch,navigate) => {
     await checkToken(dispatch, navigate);
     return axios({
-      url: `${BACKEND_DOMAIN}/get-campaigns-search?key_word=${data.keyWord}&page_number=${data.pageNumber}&number_of_element=${data.number0fElements}&start_time=${data.startTime}&end_time=${data.endTime}`,
+      url: `${BACKEND_DOMAIN}/get-campaigns-search?key_word=${data.keyWord}&page_number=${data.pageNumber}&start_time=${data.startTime}&end_time=${data.endTime}`,
       method: 'GET',
       data,
       headers: {

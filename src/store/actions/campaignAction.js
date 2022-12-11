@@ -43,15 +43,16 @@ export const createFailed = () => {
   }
 }
 
-export const fetchAllCampaignPaginationAction = (keyWord, pageNumber, number0fElements, startTime, endTime, dispatch, navigate) => {
+export const fetchAllCampaignPaginationAction = (keyWord, pageNumber, startTime, endTime, navigate) => {
   return async (dispatch) => {
     dispatch(fetchStart());
     try {
       dispatch(turnOnLoader());
       let dataFetch = {
-        keyWord, pageNumber, number0fElements, startTime, endTime
+        keyWord, pageNumber, startTime, endTime
       }
       const res = await campaignServices.fetchCampaignPagination(dataFetch, dispatch, navigate)
+      console.log("res fetch" , res.data)
       if (res.data.statusCode === STATUS_CODE.SUCCESS) {
         dispatch(turnOffLoader());
         dispatch(fetchSuccess(res.data))
@@ -138,7 +139,6 @@ export const updateCampaignAction = (data, currentPage, dispatch, navigate) => {
     try {
       dispatch(turnOnLoader());
       const res = await campaignServices.updateCampaign(data, dispatch, navigate)
-      console.log('res update' , res.data)
       if (res.data.statusCode === STATUS_CODE.SUCCESS) {
         dispatch(turnOffLoader());
         toast.success("Update campaign succeed!")
