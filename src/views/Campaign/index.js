@@ -10,14 +10,12 @@ import './Campaign.css';
 import Lightbox from 'react-18-image-lightbox';
 import 'react-18-image-lightbox/style.css';
 import { toast } from 'react-toastify'
-import { createCampaignAction, fetchAllCampaignPaginationAction, moveDataUpdateToStoreAction, moveData, softDeleteCampaignAction } from '../../store/actions/campaignAction';
-import { BACKEND_DOMAIN, BACKEND_DOMAIN_IMAGE, LIMIT_NUM_CAMPAIGN } from '../../config/settingSystem';
+import { createCampaignAction, fetchAllCampaignPaginationAction,  moveData, softDeleteCampaignAction } from '../../store/actions/campaignAction';
+import {  BACKEND_DOMAIN_IMAGE, LIMIT_NUM_CAMPAIGN } from '../../config/settingSystem';
 import ModalDefault from '../../components/Common/ModalEditCampaign';
-import axios from 'axios';
-import { turnOffLoader, turnOnLoader } from '../../store/actions/loaderAction';
-import Paginate from '../../components/Common/Pagination';
 import ReactPaginate from 'react-paginate';
-const FileDownload = require('js-file-download');
+import {CSVLink} from 'react-csv'
+
 export default function Campaign() {
   const [searchInfo, setSearchInfo] = useState({
     key_word: '',
@@ -35,6 +33,24 @@ export default function Campaign() {
   const [show, setShow] = useState(false);
   const [previewBanner, setPreviewBanner] = useState('');
   const [isOpenLightBox, setIsOpenLightBox] = useState(false)
+  const pageCount = Math.ceil(totalRecords / LIMIT_NUM_CAMPAIGN);
+  const handlePageClick = (event) => {
+    setSearchInfo({ ...searchInfo, page_number: event.selected + 1})
+  };
+  const headerExport = [
+    {label: 'Name', key: 'name'},
+    {label: 'Status', key: 'status'},
+    {label: 'Used Amount', key: 'used_amount'},
+    {label: 'Usage Rate', key: 'usage_rate'},
+    {label: 'Budget', key: 'budget'},
+    {label: 'Bid amount', key: 'bid_amount'},
+    {label: 'Start date', key: 'start_time'},
+    {label: 'End date', key: 'end_time'},
+    {label: 'Description', key: 'description'},
+    {label: 'Final url', key: 'final_url'},
+    {label: 'Title', key: 'title'},
+    {label: 'Banner', key: 'banner'},
+  ]
   const handleClose = () => {
     setShow(false)
   };
@@ -150,26 +166,6 @@ export default function Campaign() {
   useEffect(() => {
     dispatch(fetchAllCampaignPaginationAction(searchInfo.key_word, searchInfo.page_number, searchInfo.start_time, searchInfo.end_time, navigate))
   }, [searchInfo])
-  const handleExportData = () => {
-    dispatch(turnOnLoader())
-    axios({
-      url: `${BACKEND_DOMAIN}/campaigns/export`,
-      method: 'GET',
-      responseType: 'blob',
-    }).then((res) => {
-      dispatch(turnOffLoader())
-      FileDownload(res.data, 'campaigns.csv');
-    }).catch((res) => {
-      dispatch(turnOffLoader())
-    })
-  }
-  const pageCount = Math.ceil(totalRecords / LIMIT_NUM_CAMPAIGN);
-  const handlePageClick = (event) => {
-    console.log(
-      `User requested page number ${event.selected + 1}`
-    );
-    setSearchInfo({ ...searchInfo, page_number: event.selected + 1})
-  };
   return (
     <>
       <div className="block">
@@ -191,7 +187,9 @@ export default function Campaign() {
         <div className="right">
           <div className="two-button">
             <div className="Export-csv-btn">
-              <button onClick={handleExportData} className="export">Export CSV</button>
+              <CSVLink data={listCampaign} headers={headerExport} filename='campaigns.csv'>
+                <button className="export">Export CSV</button>
+              </CSVLink>
             </div>
             <div className="Campaign-btn">
               <Button variant="primary" onClick={handleShow}>
@@ -260,13 +258,13 @@ export default function Campaign() {
           previousLabel="<"
           nextLabel=">"
           breakLabel="..."
-          pageCount={pageCount}   // totalRecord from be
+          pageCount={pageCount}   
           onPageChange={handlePageClick}
-          pageRangeDisplayed={5}  // hien thi page trong dau ...
+          pageRangeDisplayed={5}  
           renderOnZeroPageCount={null}
-          containerClassName={'pagination justify-content-center'}  // className bootstrap
-          pageClassName={'page-item'} // className bootstrap
-          pageLinkClassName={'page-link'}  // className bootstrap
+          containerClassName={'pagination justify-content-center'}  
+          pageClassName={'page-item'} 
+          pageLinkClassName={'page-link'}  
           previousClassName={'page-item'}
           previousLinkClassName={'page-link'}
           nextClassName={'page-item'}
@@ -496,6 +494,8 @@ export default function Campaign() {
     </>
   )
 }
+
+
 
 
 

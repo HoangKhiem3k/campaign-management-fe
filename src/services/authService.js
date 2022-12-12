@@ -53,14 +53,3 @@ export const authServices = {
 }
 
 
-
-
-// const login = (user) => {
-//   return axios.post(`${API_URL}/login`, user);
-// };
-
-// const logout = () => {
-//   localStorage.removeItem('user');
-// };
-
-// export { login, logout };

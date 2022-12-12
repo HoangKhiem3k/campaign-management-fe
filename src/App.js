@@ -11,7 +11,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from './components/Common/Loading';
-import Paginate from './components/Common/Pagination'
 function App() {
   const user = useSelector((state) => state.auth.currentUser);
   return (
@@ -20,7 +19,6 @@ function App() {
         <Loading />
         <div className="App">
           <Routes>
-            <Route path="/paginate" element={< Paginate/>}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/" render element={user !== null ? <MainLayout /> : <Navigate replace to="/login" />}>
               <Route index element={<Dashboard />} />
@@ -39,3 +37,4 @@ function App() {
 }
 
 export default App;
+

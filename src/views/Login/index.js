@@ -1,14 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './Login.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { loginAction } from '../../store/actions/authActions';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { ROLES } from '../../config/settingSystem';
 export default function Login() {
-  // const [email, setEmail] = useState('')
-  // const [password, setPassword] = useState('')
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,18 +29,6 @@ export default function Login() {
   if(currentUser){
     return  <Navigate to={'/'} />;
   }
-  // if (currentUser && currentUser.permissions.role_type === ROLES.ADMIN) {
-  //   return <Navigate to={'/admin'} />;
-  // }else{
-  //   if(currentUser && currentUser.permissions.role_type === ROLES.ADVERTISER){
-  //     return <Navigate to={'/advertiser'} />;
-  //   }else{
-  //     if(currentUser && currentUser.permissions.role_type === ROLES.DAC_MEMBER){
-  //       return <Navigate to={'/dac-member'} />;
-  //     }
-  //   }
-  // }
-
   return (
     <div className='wraper-login'>
       <div className="cover">
@@ -75,3 +60,6 @@ export default function Login() {
     </div>
   )
 }
+
+
+

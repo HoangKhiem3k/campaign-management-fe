@@ -3,7 +3,6 @@
   width              : (100% - 250px);
   margin-left        : 280px;
   padding            : 25px;
-  /* background-color: #4267b2; */
   background-size    : cover;
 }
 
@@ -20,7 +19,6 @@
   border       : 1px solid var(--gray-color);
   border-radius: 5px;
   height       : 45px;
-  /* display   : flex; */
   align-items  : center;
   overflow-x   : hidden;
   margin-bottom: 10px;
@@ -285,7 +283,6 @@
   float           : left;
   align-items     : center;
   height          : 0;
-  /* margin-bottom: 10px; */
   padding         : 5px;
   bottom          : 0;
 }
@@ -416,6 +413,5 @@
   }
 }
 
-/* .modal {
-  z-index: 999 !important;
-} */
+
+

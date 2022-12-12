@@ -77,17 +77,10 @@ label {
     transform     : translateY(-50%);
     top           : 50%;
     pointer-events: none;
-    /*Thu?c tính khi tr? chu?t vào lable email vs password s? b?t dc s? ki?n */
     transition    : all 0.3s ease-in-out;
 }
 
-/* .form__control input:focus + label, .form__control input:valid + label{
-    top: 0px;
-    background: #fff;
-    font-size: 12px;
-    font-weight: 500;
-    color: #0099FF;
-} */
+
 
 .form__control input:focus {
     border: 1px solid #0099FF;
@@ -143,5 +136,5 @@ label {
     #btn-google {
         width: 100%;
     }
-
 }
+

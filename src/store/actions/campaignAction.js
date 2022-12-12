@@ -1,5 +1,5 @@
 // import { login } from '../../services/authService';
-import { LIMIT_NUM_CAMPAIGN, STATUS_CODE } from '../../config/settingSystem';
+import {  STATUS_CODE } from '../../config/settingSystem';
 import { campaignServices } from '../../services/campaignService';
 import { toast } from 'react-toastify';
 import { CREATE_CAMPAIGN_ERROR, CREATE_CAMPAIGN_START, CREATE_CAMPAIGN_SUCCESS, FETCH_CAMPAIGNS_ERROR, FETCH_CAMPAIGNS_START, FETCH_CAMPAIGNS_SUCCESS, MOVE_DATA_UPDATE_TO_STORE } from '../types/campaignType';
@@ -178,3 +178,4 @@ export const updateFailed = () => {
     type: CREATE_CAMPAIGN_START
   }
 }
+

@@ -15,3 +15,4 @@ const store = createStore(pReducer, composeWithDevTools(applyMiddleware(thunk)))
 const persistor = persistStore(store);
 export default store;
 export {persistor}
+

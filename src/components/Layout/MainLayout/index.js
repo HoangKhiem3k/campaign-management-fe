@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Outlet } from 'react-router-dom';
-import { authServices } from '../../../services/authService';
-import { logoutAction, logoutSuccess } from '../../../store/actions/authActions';
+import { logoutAction } from '../../../store/actions/authActions';
 import './MainLayout.css';
 
 import { ROLES } from '../../../config/settingSystem';
@@ -108,7 +107,6 @@ export default function MainLayout() {
               </a>
             </li>
             <li className={isAdmin() === 1 ? "item" : "item disable-account"}>
-            {/* <li className="item"> */}
               <a href="account">
                 <i className="icon fa fa-user"></i>
                 <span>Account</span>
@@ -125,3 +123,4 @@ export default function MainLayout() {
     </div>
   );
 }
+

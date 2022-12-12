@@ -22,7 +22,6 @@ function getDateTime(){
   }
   
   let current_time = hour + ":" + min + ":" + second;
-  // let current_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
   let current_date = date.getFullYear() + "-" + monthTmp + "-" + dateTmp;
   return current_date + " " + current_time;
 }
@@ -46,3 +45,4 @@ export function checkRefreshToken() {
       return false;
   }
 }
+

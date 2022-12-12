@@ -7,3 +7,5 @@ export default function GlobalStyles({ children }) {
     </div>
   )
 }
+
+

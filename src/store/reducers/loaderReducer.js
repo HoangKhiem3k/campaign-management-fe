@@ -22,3 +22,5 @@ const loaderReducer = (state = initialState, action) => {
 };
 
 export default loaderReducer;
+
+
