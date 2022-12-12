@@ -61,7 +61,8 @@ export default function Campaign() {
       bid_amount: Yup.number().typeError('Bid amount must be a number').required("Please enter campaign's bid amount").positive("Must be more than 0").integer('Bid amount must be a integer').max(Number.MAX_SAFE_INTEGER, "Bid amount must be less than or equal to 9007199254740991"),
       title: Yup.string().min(2, "Title must have at least 2 characters").max(255, "Exceed the number of characters"),
       description: Yup.string().min(2, "Description must have at least 2 characters"),
-      banner: Yup.mixed().required("Please choose a campaign's banner").test("FILE_TYPE", "Invalid type! Please choose another file", (value) => value && ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/svg'].includes(value.type)),
+      banner: Yup.mixed().required("Please choose a campaign's banner").test("FILE_TYPE", "Invalid type! Please choose another file", (value) => value && ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/svg'].includes(value.type)).test('Fichier taille',
+      'Please choose a size less than 1 mb', (value) => !value || (value && value.size <= 1024 * 1024)),
       final_url: Yup.string().min(2, "URL must have at least 2 characters").max(255, "Exceed the number of characters"),
     }),
     onSubmit: async (values) => {

@@ -5,16 +5,17 @@ import { toast } from 'react-toastify';
 import { CREATE_CAMPAIGN_ERROR, CREATE_CAMPAIGN_START, CREATE_CAMPAIGN_SUCCESS, FETCH_CAMPAIGNS_ERROR, FETCH_CAMPAIGNS_START, FETCH_CAMPAIGNS_SUCCESS, MOVE_DATA_UPDATE_TO_STORE } from '../types/campaignType';
 import { turnOffLoader, turnOnLoader } from './loaderAction';
 // create action
-export const createCampaignAction = (formData, dispatch, navigate) => {
+export const createCampaignAction = (formData,  navigate) => {
   return async (dispatch) => {
     dispatch(createStart());
     try {
       dispatch(turnOnLoader());
       const res = await campaignServices.createCampaign(formData, dispatch, navigate)
+      console.log("res create ", res.data)
       if (res.data.statusCode === STATUS_CODE.SUCCESS_CREATED) {
         dispatch(turnOffLoader());
         toast.success("Create a new campaign succeed!")
-        dispatch(fetchAllCampaignPaginationAction('', 1, LIMIT_NUM_CAMPAIGN, '', '', dispatch, navigate))
+        dispatch(fetchAllCampaignPaginationAction('', 1, '', '', dispatch, navigate))
       } else {
         dispatch(turnOffLoader());
         toast.error(res.data.errors.banner[0])
@@ -83,16 +84,18 @@ export const fetchFailed = () => {
   }
 }
 // soft delete campaign 
-export const softDeleteCampaignAction = (data, dispatch, navigate) => {
+export const softDeleteCampaignAction = (data,  navigate) => {
   return async (dispatch) => {
     dispatch(softDeleteStart());
     try {
       dispatch(turnOnLoader());
       const res = await campaignServices.softDeleteCampaign(data, dispatch, navigate)
+      console.log("res delete", res.data)
+
       if (res.data.statusCode === STATUS_CODE.SUCCESS) {
         dispatch(turnOffLoader());
         toast.success("Deleted campaign succeed!")
-        dispatch(fetchAllCampaignPaginationAction('', 1, LIMIT_NUM_CAMPAIGN, '', '', dispatch, navigate))
+        dispatch(fetchAllCampaignPaginationAction('', 1, '', '', dispatch, navigate))
       } else {
         dispatch(turnOffLoader());
         toast.error(res.data.message)
@@ -133,16 +136,17 @@ export const moveData = (payload) => {
   }
 }
 // update campaign
-export const updateCampaignAction = (data, currentPage, dispatch, navigate) => {
+export const updateCampaignAction = (data, currentPage,  navigate) => {
   return async (dispatch) => {
     dispatch(updateStart());
     try {
       dispatch(turnOnLoader());
       const res = await campaignServices.updateCampaign(data, dispatch, navigate)
+      console.log("res update", res.data)
       if (res.data.statusCode === STATUS_CODE.SUCCESS) {
         dispatch(turnOffLoader());
         toast.success("Update campaign succeed!")
-        dispatch(fetchAllCampaignPaginationAction('', currentPage, LIMIT_NUM_CAMPAIGN, '', '', dispatch, navigate))
+        dispatch(fetchAllCampaignPaginationAction('', currentPage, '', '', dispatch, navigate))
       } else {
         if (res.data.statusCode === 403) {
           dispatch(turnOffLoader());

@@ -57,6 +57,7 @@ export const campaignServices = {
     })
   },
   updateCampaign:async (formData,dispatch,navigate) => {
+    await checkToken(dispatch, navigate);
     return axios({
       url: `${BACKEND_DOMAIN}/update-campaign`,
       method: 'POST',
@@ -71,10 +72,10 @@ export const campaignServices = {
     return axios({
       url: `${BACKEND_DOMAIN}/campaigns/export`,
       method: 'GET',
-      // headers: {
-      //   'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-      //   'Content-Type': 'multipart/form-data'
-      // }
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+        'Content-Type': 'multipart/form-data'
+      }
     })
   }
 }

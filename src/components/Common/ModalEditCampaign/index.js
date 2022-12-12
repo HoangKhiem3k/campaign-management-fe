@@ -32,10 +32,10 @@ function ModalDefault({isOpenModalEdit,setOpenModalEdit,currentPage}) {
       end_time: campaignUpdate.end_time,
       budget: campaignUpdate.budget,
       bid_amount: campaignUpdate.bid_amount,
-      title: campaignUpdate.title,
-      description: campaignUpdate.description,
+      title: campaignUpdate.title ? campaignUpdate.title : '',
+      description: campaignUpdate.description ? campaignUpdate.description : '',
       banner: '',
-      final_url: campaignUpdate.final_url
+      final_url: campaignUpdate.final_url ? campaignUpdate.final_url : '',
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Please enter campaign's name").min(2, "Name must have at least 2 characters").max(255, "Exceed the number of characters"),

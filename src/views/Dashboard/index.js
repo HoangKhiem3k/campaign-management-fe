@@ -202,7 +202,6 @@ export default function Dashboard() {
                 <th>Budget</th>
                 <th>Start date</th>
                 <th>End date</th>
-                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -223,19 +222,6 @@ export default function Dashboard() {
                     <td>¥{item.budget}</td>
                     <td>{item.start_time.slice(0, 16)}</td>
                     <td>{item.end_time.slice(0, 16)}</td>
-                    <td>
-                      <div className="action">
-                        <div className="update">
-                          <button onClick={() => {
-                            handleUpdateCampaign(item)
-                          }}>Update</button>
-
-                        </div>
-                        <div className="delete">
-                          <button onClick={() => handleSoftDelete(item.id)}>Delete</button>
-                        </div>
-                      </div>
-                    </td>
                   </tr>
                 )
               })
