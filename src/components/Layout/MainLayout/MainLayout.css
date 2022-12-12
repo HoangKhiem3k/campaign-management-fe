@@ -1,24 +1,29 @@
-.wrapper h1 {
+.wrapper{
+  margin-top: calc(var(--navbar-height) + var(--banner-height));
+}
+
+.wrapper .banner h1 {
   text-align: center;
   padding   : 5px;
   font-size : 28px;
+  background-color: #fff;
+  height: var(--banner-height);
 }
 
 #header {
-  max-width : 100%;
-  background: var(--blue-main-color);
-  min-height: 70px;
-  padding   : 15px 30px;
+  width : 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
 }
 
 #header .navbar {
+  height: var(--navbar-height);
+  background: var(--blue-main-color);
+  padding: 15px 30px;
   display        : flex;
   justify-content: space-between;
   align-items    : center;
-}
-
-.banner {
-  height: 78px;
 }
 
 .navbar .title {

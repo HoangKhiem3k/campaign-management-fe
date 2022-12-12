@@ -50,6 +50,8 @@ table {
     --white-color: #fff;
     --red-color: #e74c3c;
     --blue-color: #4267b2;
+    --navbar-height: 70px;
+    --banner-height: 100px;
 }
 
 .ril__outer, .ril__caption, .ril__toolbar, .ril__image, .ril__imagePrev, .ril__imageNext,.ril__inner {

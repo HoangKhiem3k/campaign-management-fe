@@ -57,7 +57,7 @@ export default function Dashboard() {
     <>
       <div className="block">
         <div className="left">
-          <div className="search-bar">
+          <div className="search-bar-dashboard">
             <input type="search" placeholder="Search" onInput={(e) => handleChangeSearchByKeyWord(e)} />
           </div>
         </div>

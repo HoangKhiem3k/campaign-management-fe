@@ -43,8 +43,9 @@ export default function MainLayout() {
   }
   return (
     <div className={isShowSidebar ? 'wrapper isShowSidebar' : 'wrapper'}>
-      {currentUser ? (<><div className='banner'><h1>Banner</h1></div>
+      {currentUser ? (<>
         <div id="header">
+          <div className='banner'><h1>Banner</h1></div>
           <div className="navbar">
             <div className="tool-bar">
               <div className="navbar-btn">
